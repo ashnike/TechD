@@ -34,6 +34,7 @@ git clone https://github.com/ashnike/TechD.git
 Add the .env file in the backend folder which will contain the port as well as 
 the mongodb database connection url 
 ```bash
+PORT= 8080
 DB=mongodb://username:password@host:port/database_name
 ```
 
