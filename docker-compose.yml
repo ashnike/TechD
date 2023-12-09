@@ -1,0 +1,55 @@
+version: '3.3'
+
+services:
+  frontend:
+    container_name: TechD-frontend
+    image: my-frontend-image:latest
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    container_name: TechD-backend
+    image: my-backend-image:latest
+    build: ./backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    networks:
+      - app-network
+
+  database:
+    container_name: TechD-database
+    image: mongo
+    ports:
+      - "27017:27017"  # Expose MongoDB on port 27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root # Optional: Root username
+      - MONGO_INITDB_ROOT_PASSWORD=example # Optional: Root password
+    networks:
+      - app-network
+
+  nginx:
+    container_name: TechD-nginx
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
