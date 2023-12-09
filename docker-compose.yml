@@ -21,18 +21,30 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - database
+      - mongo
     networks:
       - app-network
 
-  database:
-    container_name: TechD-database
+  mongo:
     image: mongo
+    restart: always
     ports:
       - "27017:27017"  # Expose MongoDB on port 27017
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root # Optional: Root username
-      - MONGO_INITDB_ROOT_PASSWORD=example # Optional: Root password
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - app-network
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
     networks:
       - app-network
 
@@ -52,4 +64,3 @@ services:
 networks:
   app-network:
     driver: bridge
-
