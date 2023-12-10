@@ -35,7 +35,12 @@ Add the .env file in the backend folder which will contain the port as well as
 the mongodb database connection url 
 ```bash
 PORT= 8080
-DB=mongodb://username:password@host:port/database_name
+DB=mongodb://username:password@host:port/
 ```
 
+### Launch containers
 
+
+```bash
+docker-compose up -d
+```
