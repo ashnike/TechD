@@ -16,8 +16,8 @@ List any prerequisites or requirements needed before installation.
 
 - Node.js
 - Docker
-- Kubernetes
-- Terraform
+- Kubernetes(pending)
+- Terraform (pending)
 
 ### Steps
 
